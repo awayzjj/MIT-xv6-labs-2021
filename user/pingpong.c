@@ -24,7 +24,7 @@ main(int argc, char *argv[])
 
     write(pipefd[WRITEEND], pong, strlen(pong));
     close(pipefd[WRITEEND]); 
-    exit(0);
+    //exit(0);
   } else {
     if(argc > 1) {
       write(pipefd[WRITEEND], argv[1], strlen(argv[1]));
@@ -38,6 +38,9 @@ main(int argc, char *argv[])
     read(pipefd[0], buf, BUF_SIZE);
     printf("%d: received %s\n", getpid(), buf);
     close(pipefd[READEND]);
-    exit(0);
+    //exit(0);
   }
+
+  // main and sub process both will reach hear
+  exit(0);
 }
