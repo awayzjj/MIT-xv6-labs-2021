@@ -52,11 +52,13 @@ ls(char *path)
       break;
     }
     strcpy(buf, path);
+    // 对齐空格
     p = buf+strlen(buf);
     *p++ = '/';
     while(read(fd, &de, sizeof(de)) == sizeof(de)){
-      if(de.inum == 0)
-        continue;
+      if(de.inum == 0) {
+        continue;}
+      // 目录+文件名，构造全路径
       memmove(p, de.name, DIRSIZ);
       p[DIRSIZ] = 0;
       if(stat(buf, &st) < 0){
