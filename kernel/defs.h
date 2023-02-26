@@ -64,7 +64,6 @@ void*           kalloc(void);
 void            kfree(void *);
 void            kinit(void);
 uint64          kfreeamount(void);
-uint64          freememsize(void);
 
 // log.c
 void            initlog(int, struct superblock*);
@@ -107,7 +106,6 @@ int             either_copyout(int user_dst, uint64 dst, void *src, uint64 len);
 int             either_copyin(void *dst, int user_src, uint64 src, uint64 len);
 void            procdump(void);
 int             procnum(void);
-int             nproc_active(void);
 
 // swtch.S
 void            swtch(struct context*, struct context*);
