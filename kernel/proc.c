@@ -99,7 +99,7 @@ allocpid() {
 
 // Look in the process table for an UNUSED proc.
 // If found, initialize state required to run in the kernel,
-// and return with p->lock held.
+// and return with p->lock heldzz.
 // If there are no free procs, or a memory allocation fails, return 0.
 static struct proc*
 allocproc(void)
@@ -288,6 +288,7 @@ fork(void)
     return -1;
   }
   np->sz = p->sz;
+  np->mask = p->mask;
 
   // copy saved user registers.
   *(np->trapframe) = *(p->trapframe);
@@ -653,4 +654,29 @@ procdump(void)
     printf("%d %s %s", p->pid, state, p->name);
     printf("\n");
   }
+}
+
+int
+procnum(void)
+{
+  int proc_num = 0;
+  struct proc *p;
+
+  for(p = proc; p < &proc[NPROC]; p++){
+    if(p->state != UNUSED)
+      proc_num += 1;
+  }
+  return proc_num;
+}
+
+int
+nproc_active()
+{
+  int i;
+  int num = 0;
+  for (i=0; i<NPROC; i++) {
+    if (proc[i].state != UNUSED)
+      num++;
+  }
+  return num;
 }
